@@ -43,12 +43,17 @@ export const Layout: React.FC<LayoutProps> = ({ children, setView, isAuthenticat
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-6">
-              <a 
-                href="#estoque"
+              <button 
+                onClick={() => {
+                  setView({ name: 'home' });
+                  setTimeout(() => {
+                    document.getElementById('estoque')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
                 className="text-slate-600 hover:text-blue-600 font-medium transition-colors"
               >
                 Estoque
-              </a>
+              </button>
               
               <button 
                 onClick={() => setView({ name: 'about' })}
@@ -64,12 +69,17 @@ export const Layout: React.FC<LayoutProps> = ({ children, setView, isAuthenticat
                 Contato
               </button>
               
-              <a 
-                href="#vender"
+              <button 
+                onClick={() => {
+                  setView({ name: 'home' });
+                  setTimeout(() => {
+                    document.getElementById('vender')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
                 className="text-slate-600 hover:text-blue-600 font-medium transition-colors"
               >
                 Vender Seu Carro
-              </a>
+              </button>
               
               {isAuthenticated ? (
                 <div className="flex items-center space-x-4 ml-4 pl-4 border-l border-slate-300">
@@ -119,14 +129,19 @@ export const Layout: React.FC<LayoutProps> = ({ children, setView, isAuthenticat
           {mobileMenuOpen && (
             <div className="md:hidden border-t border-slate-200 py-4">
               <nav className="flex flex-col space-y-3">
-                <a 
-                  href="#estoque"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-slate-600 hover:text-blue-600 font-medium px-4 py-2 hover:bg-slate-50 rounded-lg transition-colors"
+                <button 
+                  onClick={() => {
+                    setView({ name: 'home' });
+                    setMobileMenuOpen(false);
+                    setTimeout(() => {
+                      document.getElementById('estoque')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
+                  className="text-left text-slate-600 hover:text-blue-600 font-medium px-4 py-2 hover:bg-slate-50 rounded-lg transition-colors"
                 >
                   <i className="fa-solid fa-car mr-2"></i>
                   Estoque
-                </a>
+                </button>
                 
                 <button 
                   onClick={() => handleNavClick({ name: 'about' })}
@@ -144,14 +159,19 @@ export const Layout: React.FC<LayoutProps> = ({ children, setView, isAuthenticat
                   Contato
                 </button>
                 
-                <a 
-                  href="#vender"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-slate-600 hover:text-blue-600 font-medium px-4 py-2 hover:bg-slate-50 rounded-lg transition-colors"
+                <button 
+                  onClick={() => {
+                    setView({ name: 'home' });
+                    setMobileMenuOpen(false);
+                    setTimeout(() => {
+                      document.getElementById('vender')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
+                  className="text-left text-slate-600 hover:text-blue-600 font-medium px-4 py-2 hover:bg-slate-50 rounded-lg transition-colors"
                 >
                   <i className="fa-solid fa-handshake mr-2"></i>
                   Vender Seu Carro
-                </a>
+                </button>
 
                 <div className="border-t border-slate-200 pt-3 mt-3">
                   {isAuthenticated ? (
