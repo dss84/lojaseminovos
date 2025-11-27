@@ -1,11 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
 import { Car } from "../types";
 
-// Note: In a real production app, this call would go to your own backend to protect the API key.
-// For this frontend-only demo, we access the env var directly.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Verificar se a API Key está configurada
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+const isGeminiConfigured = apiKey && apiKey !== '';
+
+// Inicializar apenas se a API Key estiver configurada
+let ai: GoogleGenAI | null = null;
+if (isGeminiConfigured) {
+  ai = new GoogleGenAI({ apiKey });
+}
 
 export const generateCarDescription = async (car: Partial<Car>): Promise<string> => {
+  // Se o Gemini não estiver configurado, retornar descrição padrão
+  if (!ai || !isGeminiConfigured) {
+    console.warn('⚠️ Gemini API não configurada. Usando descrição padrão.');
+    return `${car.make} ${car.model} ${car.year}, ${car.type} com motor ${car.fuel} e câmbio ${car.transmission}. Veículo em excelente estado de conservação, com ${car.mileage?.toLocaleString('pt-BR')} km rodados. Cor ${car.color}. Oportunidade única!`;
+  }
+
   try {
     const prompt = `
       Escreva uma descrição de venda atraente, profissional e persuasiva para um site de carros seminovos (em Português do Brasil).
