@@ -159,7 +159,8 @@ const App: React.FC = () => {
 
   const renderDetails = () => {
     if (view.name !== 'details') return null;
-    const car = getCarById(view.carId);
+    // Buscar carro do state em vez do localStorage
+    const car = cars.find(c => c.id === view.carId);
     if (!car) return <div className="p-8 text-center">Veículo não encontrado</div>;
     
     return <CarDetails car={car} onBack={() => setView({ name: 'home' })} />;
